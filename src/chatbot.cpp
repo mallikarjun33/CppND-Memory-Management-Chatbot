@@ -13,7 +13,7 @@ ChatBot::ChatBot()
 {
     // invalidate data handles
     _image = nullptr;
-    _chatLogic = nullptr;
+   _chatLogic = nullptr;
     _rootNode = nullptr;
 }
 
