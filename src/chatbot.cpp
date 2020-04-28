@@ -15,6 +15,7 @@ ChatBot::ChatBot()
     _image = nullptr;
    _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 }
 
 // constructor WITH memory allocation
@@ -25,6 +26,7 @@ ChatBot::ChatBot(std::string filename)
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
@@ -44,6 +46,63 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+//copy constructor
+ChatBot::ChatBot(ChatBot &chatbot) {
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    _image=chatbot._image;                  //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
+    //pass raw pointers!?
+    _chatLogic=chatbot._chatLogic;
+    _currentNode=chatbot._currentNode;
+    _rootNode=chatbot._rootNode;
+}
+//copy assignment operator
+ChatBot & ChatBot::operator=(ChatBot &chatbot) {
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
+
+    if(this==&chatbot)                  //don't copy an object to itself
+        return *this;
+    //copy members of  passed object to current object
+    _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
+    _chatLogic=chatbot._chatLogic;
+    _currentNode=chatbot._currentNode;
+    _rootNode=chatbot._rootNode;
+    return *this;
+}
+//move constructor
+ChatBot::ChatBot(ChatBot &&chatbot) {
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    //copy object members to a new one
+    _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
+    _chatLogic=chatbot._chatLogic;
+    _currentNode=chatbot._currentNode;
+    _rootNode=chatbot._rootNode;
+
+    //make copied object members invalid
+    chatbot._image= nullptr;
+    chatbot._chatLogic= nullptr;
+    chatbot._currentNode= nullptr;
+    chatbot._rootNode= nullptr;
+}
+//move assignment operator
+ChatBot & ChatBot::operator=(ChatBot &&chatbot) {
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+    if(this==&chatbot)                   //don't copy an object to itself
+        return *this;
+
+    //copy members of  passed object to current object
+    _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
+    _chatLogic=chatbot._chatLogic;
+    _currentNode=chatbot._currentNode;
+    _rootNode=chatbot._rootNode;
+
+    //make copied object members invalid
+    chatbot._image= nullptr;
+    chatbot._chatLogic= nullptr;
+    chatbot._currentNode= nullptr;
+    chatbot._rootNode= nullptr;
+
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE
