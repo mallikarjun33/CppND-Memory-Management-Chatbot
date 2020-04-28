@@ -54,6 +54,7 @@ ChatBot::ChatBot(ChatBot &chatbot) {
     _chatLogic=chatbot._chatLogic;
     _currentNode=chatbot._currentNode;
     _rootNode=chatbot._rootNode;
+    _chatLogic->SetChatbotHandle(this);     //do we need to do this still?
 }
 //copy assignment operator
 ChatBot & ChatBot::operator=(ChatBot &chatbot) {
@@ -82,6 +83,9 @@ ChatBot::ChatBot(ChatBot &&chatbot) {
     chatbot._chatLogic= nullptr;
     chatbot._currentNode= nullptr;
     chatbot._rootNode= nullptr;
+
+    _chatLogic->SetChatbotHandle(this);     //do we need to do this still?
+
 }
 //move assignment operator
 ChatBot & ChatBot::operator=(ChatBot &&chatbot) {
