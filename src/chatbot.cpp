@@ -15,7 +15,6 @@ ChatBot::ChatBot()
     _image = nullptr;
    _chatLogic = nullptr;
     _rootNode = nullptr;
-    //_currentNode = nullptr;
 }
 
 // constructor WITH memory allocation

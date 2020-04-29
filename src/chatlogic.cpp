@@ -227,7 +227,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     //TODO:
     //create ChatBot local instance on stack
-    ChatBot chatbot=ChatBot("../images/chatbot.png");
+    ChatBot chatbot("../images/chatbot.png");
     chatbot.SetChatLogicHandle(this);
     chatbot.SetRootNode(rootNode);
     //use move semantics to pass the ChatBot instance into the root node.
