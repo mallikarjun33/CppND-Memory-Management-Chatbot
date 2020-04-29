@@ -15,7 +15,7 @@ ChatBot::ChatBot()
     _image = nullptr;
    _chatLogic = nullptr;
     _rootNode = nullptr;
-    _currentNode = nullptr;
+    //_currentNode = nullptr;
 }
 
 // constructor WITH memory allocation
@@ -65,7 +65,7 @@ ChatBot & ChatBot::operator=(ChatBot &chatbot) {
     //copy members of  passed object to current object
     _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
     _chatLogic=chatbot._chatLogic;
-    _currentNode=chatbot._currentNode;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode=chatbot._rootNode;
     return *this;
 }
@@ -75,16 +75,13 @@ ChatBot::ChatBot(ChatBot &&chatbot) {
     //copy object members to a new one
     _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
     _chatLogic=chatbot._chatLogic;
-    _currentNode=chatbot._currentNode;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode=chatbot._rootNode;
 
     //make copied object members invalid
     chatbot._image= nullptr;
     chatbot._chatLogic= nullptr;
-    chatbot._currentNode= nullptr;
     chatbot._rootNode= nullptr;
-
-    _chatLogic->SetChatbotHandle(this);     //do we need to do this still?
 
 }
 //move assignment operator
@@ -96,13 +93,12 @@ ChatBot & ChatBot::operator=(ChatBot &&chatbot) {
     //copy members of  passed object to current object
     _image=chatbot._image;              //use a shared pointer for image (i mean replace normal pointer to shared pointer in header) if this causes a problem
     _chatLogic=chatbot._chatLogic;
-    _currentNode=chatbot._currentNode;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode=chatbot._rootNode;
 
     //make copied object members invalid
     chatbot._image= nullptr;
     chatbot._chatLogic= nullptr;
-    chatbot._currentNode= nullptr;
     chatbot._rootNode= nullptr;
 
     return *this;

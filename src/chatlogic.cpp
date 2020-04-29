@@ -18,10 +18,10 @@ ChatLogic::ChatLogic()
     ////
 
     // create instance of chatbot
-    _chatBot = new ChatBot("../images/chatbot.png");
+    //_chatBot = new ChatBot("../images/chatbot.png");
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    _chatBot->SetChatLogicHandle(this);
+    //_chatBot->SetChatLogicHandle(this);
 
     ////
     //// EOF STUDENT CODE
@@ -33,7 +33,7 @@ ChatLogic::~ChatLogic()
     ////
 
     // delete chatbot instance
-    delete _chatBot;
+    //delete _chatBot;
 
     // delete all nodes
     /*
@@ -42,7 +42,7 @@ ChatLogic::~ChatLogic()
         delete *it;
     }
     */
-    _nodes.clear();
+    //_nodes.clear();
 
     // delete all edges
     /*
@@ -166,7 +166,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode> &node) { return node->GetID() == std::stoi(childToken->second); });
 
                             // create new edge
-                            std::unique_ptr<GraphEdge> edge = std::unique_ptr<GraphEdge>(new GraphEdge(id));
+                            std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                             edge->SetChildNode(childNode->get());
                             edge->SetParentNode(parentNode->get());
                             //_edges.push_back(edge);
@@ -222,16 +222,16 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     }
 
     // add chatbot to graph root node
-    _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(_chatBot);
+    //_chatBot->SetRootNode(rootNode);
+    //rootNode->MoveChatbotHere(*_chatBot);
 
     //TODO:
     //create ChatBot local instance on stack
-    ChatBot chatbot("../images/chatbot.png");  //    ChatBot chatbot=ChatBot("../images/chatbot.png");
+    ChatBot chatbot=ChatBot("../images/chatbot.png");
     chatbot.SetChatLogicHandle(this);
     chatbot.SetRootNode(rootNode);
     //use move semantics to pass the ChatBot instance into the root node.
-    //rootNode->MoveChatbotHere(std::move(chatbot));
+    rootNode->MoveChatbotHere(std::move(chatbot));
 
     ////
     //// EOF STUDENT CODE
